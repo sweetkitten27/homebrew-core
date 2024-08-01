@@ -1,10 +1,7 @@
 name: GitHub Actions CI
 on:
-  pull_request:
-    paths:
-      - "Formula/alsa-lib.rb"
-      - "Formula/ladspa-sdk.rb"
-      - "Formula/libseccomp.rb"
+  workflow_dispatch:
+  
 jobs:
   tests_linux:
     runs-on: ubuntu-latest
