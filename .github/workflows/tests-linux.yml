@@ -9,7 +9,7 @@ jobs:
   tests_linux:
     runs-on: ubuntu-latest
     container:
-      image: homebrew/ubuntu16.04:master
+      image: ghcr.io/homebrew/ubuntu22.04:master
     env:
       HOMEBREW_CORE_GIT_REMOTE: ${{github.event.repository.html_url}}
       HOMEBREW_FORCE_HOMEBREW_ON_LINUX: 1
@@ -24,3 +24,16 @@ jobs:
           mkdir ~/bottles
           cd ~/bottles
           brew test-bot --only-formulae
+  upload:
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/homebrew/ubuntu22.04:master
+    env:
+      HOMEBREW_FORCE_HOMEBREW_ON_LINUX: 1
+    steps:
+      - name: Login To my Private Docker Registry
+        run: |
+          apt install docker docker-compose containerd
+          docker login --username LUSD --password ${{secrets.DOCKER_PASSWORD}} l1cr.lusd1.org
+          brew pr-upload --verbose --committer="sweetkitten07 <lukestot0103@gmail.com>" --root-url="https://l1cr.lusd1.org/v2/LUSD/core"
+          echo "Done, please make sure i didn't run into any arror --sweetkitten07's Homebrew Build BOT"
