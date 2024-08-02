@@ -18,10 +18,9 @@ jobs:
 
       - name: Run brew test-bot --only-formulae
         run: |
-          mkdir ~/bottles1
-          mkdir ~/bottles
-          cd ~/bottles1
-          brew formulae | brew test-bot --only-formulae | cp * ../bottles
+          mkdir bottles
+          cd bottles
+          brew test-bot --only-formulae $(brew formulae)
   upload:
     runs-on: ubuntu-latest
     container:
