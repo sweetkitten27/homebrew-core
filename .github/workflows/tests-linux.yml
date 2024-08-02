@@ -1,7 +1,7 @@
 name: GitHub Actions CI
 on:
   workflow_dispatch:
-  
+
 jobs:
   tests_linux:
     runs-on: ubuntu-latest
@@ -18,9 +18,10 @@ jobs:
 
       - name: Run brew test-bot --only-formulae
         run: |
+          mkdir ~/bottles1
           mkdir ~/bottles
-          cd ~/bottles
-          brew test-bot --only-formulae
+          cd ~/bottles1
+          brew formulae | brew test-bot --only-formulae | cp * ../bottles
   upload:
     runs-on: ubuntu-latest
     container:
