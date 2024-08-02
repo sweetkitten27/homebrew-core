@@ -21,6 +21,7 @@ jobs:
           mkdir bottles
           cd bottles
           brew test-bot --only-formulae $(brew formulae)
+  
   upload:
     runs-on: ubuntu-latest
     container:
